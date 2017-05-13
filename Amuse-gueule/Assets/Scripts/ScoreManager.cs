@@ -17,7 +17,7 @@ public class ScoreManager : MonoBehaviour {
     public Text textTimer;
     public Text textScore;
 
-    private int score;
+    public int score;
     private int consecutivesBites;
 
 
