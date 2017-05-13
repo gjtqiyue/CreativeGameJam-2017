@@ -49,7 +49,7 @@ public class InterposeWaypoint : MonoBehaviour {
     // Update is called once per frame
 	void FixedUpdate () {
 
-        Vector3 accel = steeringBasics.seek(currentTarget.position) - 0.2f * collisionAvoidance.getSteering(WallsRb);
+        Vector3 accel = steeringBasics.seek(currentTarget.position) - collisionAvoidance.getSteering(WallsRb);
 
 
         steeringBasics.steer(accel);

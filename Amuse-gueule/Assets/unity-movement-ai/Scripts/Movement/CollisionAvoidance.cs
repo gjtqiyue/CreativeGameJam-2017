@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -11,7 +12,9 @@ public class CollisionAvoidance : MonoBehaviour {
 
     private Rigidbody rb;
     private Rigidbody firstTarget;
-
+    private float distance;
+ 
+    private RaycastHit hitinfo = new RaycastHit();
     // Use this for initialization
     public void Start()
     {
@@ -38,17 +41,31 @@ public class CollisionAvoidance : MonoBehaviour {
 
         foreach (Rigidbody r in targets)
         {
+            distance = 0;
+
+            hitinfo.point = Vector3.zero;
+            //hitinfo = new RaycastHit();
+            var ray = new Ray(rb.position, gameObject.GetComponent<Rigidbody>().velocity);
+            if (!Physics.Raycast(ray, out hitinfo))
+            {
+                continue;
+            }
+
+            distance = hitinfo.distance;
+
             /* Calculate the time to collision */
-            Vector3 relativePos = transform.position - r.position;
+            Vector3 relativePos = transform.position - hitinfo.point;
             Vector3 relativeVel = rb.velocity - r.velocity;
-            float distance = relativePos.magnitude;
+            
             float relativeSpeed = relativeVel.magnitude;
+
+           
 
             if (relativeSpeed == 0)
             {
                 continue;
             }
-
+            
             float timeToCollision = -1 * Vector3.Dot(relativePos, relativeVel) / (relativeSpeed * relativeSpeed);
 
             /* Check if they will collide at all */
@@ -101,6 +118,13 @@ public class CollisionAvoidance : MonoBehaviour {
         acceleration.Normalize();
         acceleration *= maxAcceleration;
 
+
+        if (distance > 0)
+        {
+            Debug.Log("collision avoidance vector values" +  acceleration / distance * distance);
+            return acceleration / distance * distance;
+        }
+
         return acceleration;
     }
 
@@ -111,5 +135,11 @@ public class CollisionAvoidance : MonoBehaviour {
             Gizmos.color = Color.magenta;
             Gizmos.DrawCube(firstTarget.position, Vector3.one);
         }
+
+        if (!hitinfo.point.Equals(Vector3.zero))
+        {
+            Gizmos.DrawLine(rb.position, hitinfo.point);
+        }
+         
     }
 }
