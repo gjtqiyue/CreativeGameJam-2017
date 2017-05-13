@@ -10,13 +10,14 @@ public class CollisionAvoidance : MonoBehaviour {
     private float characterRadius;
 
     private Rigidbody rb;
+    private Rigidbody firstTarget;
 
     // Use this for initialization
-    void Start()
+    public void Start()
     {
+        rb = GetComponent<Rigidbody>();
         characterRadius = SteeringBasics.getBoundingRadius(transform);
 
-        rb = GetComponent<Rigidbody>();
     }
 
     public Vector3 getSteering(ICollection<Rigidbody> targets)
@@ -30,7 +31,7 @@ public class CollisionAvoidance : MonoBehaviour {
 
         /* The first target that will collide and other data that
 		 * we will need and can avoid recalculating */
-        Rigidbody firstTarget = null;
+        firstTarget = null;
         //float firstMinSeparation = 0, firstDistance = 0;
         float firstMinSeparation = 0, firstDistance = 0, firstRadius = 0;
         Vector3 firstRelativePos = Vector3.zero, firstRelativeVel = Vector3.zero;
@@ -101,5 +102,14 @@ public class CollisionAvoidance : MonoBehaviour {
         acceleration *= maxAcceleration;
 
         return acceleration;
+    }
+
+    public void OnDrawGizmos()
+    {
+        if (firstTarget)
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawCube(firstTarget.position, Vector3.one);
+        }
     }
 }

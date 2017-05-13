@@ -34,6 +34,6 @@ sysinfo.txt
 *.unitypackage
 
 /Amuse-gueule/Library/CurrentLayout.dwlt
-/Amuse-gueule/Library/metadata/* 
-/Amuse-gueule/Temp/*
-/Amuse-gueule/Library/ShaderCache/*
+/Amuse-gueule/Library/metadata/ 
+/Amuse-gueule/Temp/
+/Amuse-gueule/Library/ShaderCache/
