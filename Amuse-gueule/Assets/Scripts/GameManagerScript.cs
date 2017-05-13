@@ -15,70 +15,45 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
 
     private float gameTimer;
     private bool gameOverActivated;
-	public float timeDuration;
-	public int numOfBugs;
+    private bool raiseHeadTrigger;
+
 
     void Start()
     {
+        raiseHeadTrigger = false;
         gameOverActivated = false;
         remainingNumOfBugs = numOfBugs;
         gameTimer = timeDuration;
         scoreManager = GetComponent<ScoreManager>();
     }
-	private int remainingNumOfBugs;
-	private bool raiseHeadTrigger;
-	private float gameTimer;
-
-	void Start ()
-	{
-		raiseHeadTrigger = false;
-		remainingNumOfBugs = numOfBugs;
-		gameTimer = timeDuration;
-	}
-	
 
     void Update()
     {
         gameTimer -= Time.deltaTime;
         //end condition 1: time is up
-        if (!gameOverActivated && gameTimer <= 0)
+        if (!gameOverActivated && TimeIsUp())
         {
             gameOverActivated = true;
             // save score
+            RaiseHead();
             GetName();
-            
+            /*
+			if (Input.GetButtonDown ("Joy1ButtA") && Input.GetButtonDown ("Joy2ButtA"))
+				SceneManager.LoadScene ("Main");*/
+
             Debug.Log("Game Over");
         }
         //end condition 2: eat all the things
-        if (!gameOverActivated && remainingNumOfBugs == 0)
+        if (!gameOverActivated && NoBugsLeft())
         {
             gameOverActivated = true;
+            RaiseHead();
             //pop up a text to say the game over
             //go to the scoreboard
             //ask restart? or quit
         }
     }
-	void Update () {
-		gameTimer -= Time.deltaTime;
-		//end condition 1: time is up
-		if (TimeIsUp ()) {
-			//pop up a text to say the game over
-			//go to the scoreboard
-			//ask restart? or quit
-			RaiseHead ();
-			/*
-			if (Input.GetButtonDown ("Joy1ButtA") && Input.GetButtonDown ("Joy2ButtA"))
-				SceneManager.LoadScene ("Main");*/
-		}
-		//end condition 2: eat all the things
-		if (NoBugsLeft ()) {
-			//pop up a text to say the game over
-			//go to the scoreboard
-			//ask restart? or quit
-			RaiseHead ();
-		}
-	}
-
+	
     void GetName()
     {
         nameInputField.SetActive(true);
