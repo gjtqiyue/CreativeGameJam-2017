@@ -59,7 +59,7 @@ public class ScoreManager : MonoBehaviour {
                 consecutivesBites = 0;
             }
 
-            if (timerCombo < 2.0f)
+            if (timerCombo < 4.0f)
             {
                 emergencyState = true;
             }
