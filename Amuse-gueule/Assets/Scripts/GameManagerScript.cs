@@ -1,17 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManagerScript : MonoSingleton<GameManagerScript>
 {
-	// Use this for initialization
-	void Start ()
-	{
+    public GameObject leftChopstick;
+    public GameObject rightChopstick;
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public const string CHOPSTICK = "Chopstick";
+    public const string FOOD = "Food";
+
+    private void Awake ()
+    {
+        SetChopsticksJoystick();
+    }
+
+    private void SetChopsticksJoystick()
+    {
+        leftChopstick.GetComponent<ChopstickController>().SetController(1);
+        rightChopstick.GetComponent<ChopstickController>().SetController(2);
+    }
 }
