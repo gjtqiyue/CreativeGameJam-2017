@@ -30,38 +30,40 @@ public class ScoreManager : MonoBehaviour {
     }
 
     void Update () {
-        if (Input.GetKeyDown("s"))
-        {
-            insectEaten = true;
-            comboActivated = true;
-            consecutivesBites++;
-        }
-        if (comboActivated)
-        {
-            if (insectEaten)
+        if (GameManagerScript.Instance.gameActive) { 
+            if (Input.GetKeyDown("s"))
             {
-                ResetTimerCombo(); // reset timer
-                AddScore();
-                currentBonusPoints *= 2; // increase score for next bite
-                emergencyState = false;
+                insectEaten = true;
+                comboActivated = true;
+                consecutivesBites++;
             }
-
-            timerCombo -= Time.deltaTime;
-            textTimer.text = string.Format("{0:00.00}", timerCombo);
-            insectEaten = false;
-
-            if (timerCombo < 0.0f)
+            if (comboActivated)
             {
-                emergencyState = false;
-                comboActivated = false;
-                currentBonusPoints = originalBonusPoints; // reset bonus points;
-                ResetTimerCombo(); // reset timer;
-                consecutivesBites = 0;
-            }
+                if (insectEaten)
+                {
+                    ResetTimerCombo(); // reset timer
+                    AddScore();
+                    currentBonusPoints *= 2; // increase score for next bite
+                    emergencyState = false;
+                }
 
-            if (timerCombo < 4.0f)
-            {
-                emergencyState = true;
+                timerCombo -= Time.deltaTime;
+                textTimer.text = string.Format("{0:00.00}", timerCombo);
+                insectEaten = false;
+
+                if (timerCombo < 0.0f)
+                {
+                    emergencyState = false;
+                    comboActivated = false;
+                    currentBonusPoints = originalBonusPoints; // reset bonus points;
+                    ResetTimerCombo(); // reset timer;
+                    consecutivesBites = 0;
+                }
+
+                if (timerCombo < 4.0f)
+                {
+                    emergencyState = true;
+                }
             }
         }
     }

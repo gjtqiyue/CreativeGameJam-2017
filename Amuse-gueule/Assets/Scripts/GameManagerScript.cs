@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManagerScript : MonoSingleton<GameManagerScript>
 {
+    public bool gameActive = true;
+    public bool startMenuActive = false;
+    public bool endMenuActive = false;
+
     public GameObject nameInputField;
     public float timeDuration;
     public int numOfBugs;
     public int remainingNumOfBugs;
     [HideInInspector]
     public ScoreManager scoreManager;
+    public CameraManager cameraManager;
 
     private float gameTimer;
     private bool gameOverActivated;
@@ -19,6 +25,11 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
 
 
     void Start()
+    {
+        InitializeVariables();
+    }
+
+    private void InitializeVariables()
     {
         raiseHeadTrigger = false;
         gameOverActivated = false;
@@ -29,34 +40,70 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
 
     void Update()
     {
-        gameTimer -= Time.deltaTime;
-        //end condition 1: time is up
-        if (!gameOverActivated && TimeIsUp())
+        if (startMenuActive)
         {
-            gameOverActivated = true;
-            // save score
-            RaiseHead();
-            GetName();
-            /*
-			if (Input.GetButtonDown ("Joy1ButtA") && Input.GetButtonDown ("Joy2ButtA"))
-				SceneManager.LoadScene ("Main");*/
+            if (Input.GetKeyDown("r"))
+            {
+                startMenuActive = false;
+                // Duck head
 
-            Debug.Log("Game Over");
+            }
         }
-        //end condition 2: eat all the things
-        if (!gameOverActivated && NoBugsLeft())
+        if (gameActive)
         {
-            gameOverActivated = true;
-            RaiseHead();
-            //pop up a text to say the game over
-            //go to the scoreboard
-            //ask restart? or quit
+            gameTimer -= Time.deltaTime;
+            //end condition 1: time is up
+            if (!gameOverActivated && TimeIsUp())
+            {
+                gameActive = false;               
+                gameOverActivated = true;
+                // save score
+                RaiseHead();
+                cameraManager.RaiseCamera();
+                /*
+			    if (Input.GetButtonDown ("Joy1ButtA") && Input.GetButtonDown ("Joy2ButtA"))
+				    SceneManager.LoadScene ("Main");*/
+
+                Debug.Log("Game Over");
+            }
+            //end condition 2: eat all the things
+            if (!gameOverActivated && NoBugsLeft())
+            {
+                gameActive = false;
+                gameOverActivated = true;
+                RaiseHead();
+                //pop up a text to say the game over
+                //go to the scoreboard
+                //ask restart? or quit
+            }
+        }
+        if (endMenuActive)
+        {
+            if (Input.GetKeyDown("r"))
+            {
+                endMenuActive = false;
+                // Duck head
+
+            }
         }
     }
 	
-    void GetName()
+    public void GetName()
     {
         nameInputField.SetActive(true);
+    }
+
+    public void StartGame()
+    {
+        InitializeVariables();
+    }
+
+    public void EndGame(string name)
+    {
+        ManageScore(name);
+        // Do end game actions
+
+        endMenuActive = true;
     }
 
     public void ManageScore(string name)
@@ -72,6 +119,7 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
         ScoreSaveLoad.AddScore(name, scoreManager.score);
         ScoreSaveLoad.Save();
         ScoreSaveLoad.Sort();
+
     }
     
 	public void RaiseHead ()

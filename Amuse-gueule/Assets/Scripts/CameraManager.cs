@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimController : MonoBehaviour {
+public class CameraManager : MonoBehaviour {
 
 	public Animator anim;
 
@@ -12,10 +12,13 @@ public class AnimController : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
-		if (GameManagerScript.Instance.getRaiseHeadTrigger ()) 
-		{
-			anim.Play ("RaiseHead");
-		}
+	public void RaiseCamera () {
+		anim.Play ("RaiseHead");
 	}
+
+    public void ActionAfterCameraRaised()
+    {
+        Debug.Log("Camera Raised");
+        GameManagerScript.Instance.GetName();
+    }
 }
