@@ -13,7 +13,7 @@ public class AnimPutdown : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey (KeyCode.A) && Input.GetKey (KeyCode.P)) {
+		if (GameManagerScript.Instance.getStartGame ()) {
 			//game start
 			anim.Play ("Putdown");
 		} 

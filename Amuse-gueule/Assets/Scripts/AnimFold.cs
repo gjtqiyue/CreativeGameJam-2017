@@ -11,7 +11,7 @@ public class AnimFold : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetKey (KeyCode.A) && Input.GetKey (KeyCode.P)) {
+		if (GameManagerScript.Instance.getStartGame ()) {
 			//game start
 			anim.Play ("Fold");
 		} 
