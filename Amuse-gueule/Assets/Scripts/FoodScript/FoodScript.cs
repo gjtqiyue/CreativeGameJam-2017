@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GrappeFoodScript : MonoBehaviour
+public class FoodScript : MonoBehaviour
 {
     private int chopstickCounter;
 
@@ -22,7 +22,7 @@ public class GrappeFoodScript : MonoBehaviour
 
             if (chopstickCounter == 2)
             {
-                LiftFoodScript liftFoodScript = other.GetComponentInParent<LiftFoodScript>();
+                FoodLifterScript liftFoodScript = other.GetComponentInParent<FoodLifterScript>();
 
                 if (liftFoodScript != null)
                 {
@@ -35,7 +35,7 @@ public class GrappeFoodScript : MonoBehaviour
     {
         if (other.transform.tag == GameManagerScript.CHOPSTICK)
         {
-            LiftFoodScript liftFoodScript = other.GetComponentInParent<LiftFoodScript>();
+            FoodLifterScript liftFoodScript = other.GetComponentInParent<FoodLifterScript>();
 
             if (liftFoodScript != null)
             {

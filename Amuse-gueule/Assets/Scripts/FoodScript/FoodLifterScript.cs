@@ -2,7 +2,7 @@
 using Boo.Lang;
 using UnityEngine;
 
-public class LiftFoodScript : MonoBehaviour
+public class FoodLifterScript : MonoBehaviour
 {
     private List<GameObject> grappedFoods;
     private bool leftChopTryingToLifting;

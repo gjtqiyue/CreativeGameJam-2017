@@ -5,7 +5,7 @@ using UnityEngine;
 public class ChopstickController : MonoBehaviour
 {
     private ChopstickMovement chopstickMovement;
-    private LiftFoodScript liftFoodScript;
+    private FoodLifterScript foodLifterScript;
     private int joystickNumber;
 
     private void Awake()
@@ -16,7 +16,7 @@ public class ChopstickController : MonoBehaviour
     private void InitializeVariables()
     {
         chopstickMovement = GetComponentInChildren<ChopstickMovement>();
-        liftFoodScript = GetComponentInParent<LiftFoodScript>();
+        foodLifterScript = GetComponentInParent<FoodLifterScript>();
     }
 
     public void SetController(int joystickNumber)
@@ -26,12 +26,12 @@ public class ChopstickController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!liftFoodScript.IsLifting) chopstickMovement.Move(fetchInputs());
+        if (!foodLifterScript.IsLifting) chopstickMovement.Move(fetchInputs());
     }
 
     private void Update ()
     {
-        if (!liftFoodScript.IsLifting) chopstickMovement.Rotate(fetchInputs());
+        if (!foodLifterScript.IsLifting) chopstickMovement.Rotate(fetchInputs());
     }
 
     Hashtable fetchInputs()
