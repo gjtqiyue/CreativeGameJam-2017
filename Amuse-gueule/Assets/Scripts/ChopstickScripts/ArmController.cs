@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChopstickController : MonoBehaviour
+public class ArmController : MonoBehaviour
 {
+    private ArmMovement armMovement;
     private ChopstickMovement chopstickMovement;
     private int joystickNumber;
 
@@ -14,8 +15,8 @@ public class ChopstickController : MonoBehaviour
 
     private void InitializeVariables()
     {
-        chopstickMovement = GetComponent<ChopstickMovement>();
-        joystickNumber = 1;
+        armMovement = GetComponentInChildren<ArmMovement>();
+        chopstickMovement = GetComponentInChildren<ChopstickMovement>();
     }
 
     public void SetController(int joystickNumber)
@@ -25,12 +26,12 @@ public class ChopstickController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        chopstickMovement.MoveChopstick(fetchInputs());
+        armMovement.Move(fetchInputs());
     }
 
     private void Update ()
     {
-        chopstickMovement.rotateChopstick(fetchInputs());
+        chopstickMovement.Rotate(fetchInputs());
     }
 
     Hashtable fetchInputs()
