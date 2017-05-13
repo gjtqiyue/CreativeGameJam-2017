@@ -27,24 +27,26 @@ public class Wander1 : MonoBehaviour {
 	}
 
     public Vector3 getSteering() {
-		float characterOrientation = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
+		float characterOrientation = transform.rotation.eulerAngles.y * Mathf.Deg2Rad;
 
         /* Update the wander orientation */
         wanderOrientation += randomBinomial() * wanderRate;
-
+        Debug.Log("CharacterOrientation " + characterOrientation);
+        Debug.Log("WanderOrientation " + wanderOrientation);
         /* Calculate the combined target orientation */
         float targetOrientation = wanderOrientation + characterOrientation;
 		
 		/* Calculate the center of the wander circle */
 		Vector3 targetPosition = transform.position + (orientationToVector (characterOrientation) * wanderOffset);
-		
-		//debugRing.transform.position = targetPosition;
-		
-		/* Calculate the target position */
-		targetPosition = targetPosition + (orientationToVector(targetOrientation) * wanderRadius);
 
+        Debug.DrawRay(transform.position, targetPosition, Color.red);
+        //debugRing.transform.position = targetPosition;
+
+        /* Calculate the target position */
+        targetPosition = targetPosition + (orientationToVector(targetOrientation) * wanderRadius);
+        Debug.DrawRay(transform.position, targetPosition, Color.green);
         //Debug.DrawLine (transform.position, targetPosition);
-		return steeringBasics.seek (targetPosition);
+        return steeringBasics.seek (targetPosition);
     
 	}
 	
@@ -55,7 +57,8 @@ public class Wander1 : MonoBehaviour {
 	
 	/* Returns the orientation as a unit vector */
 	Vector3 orientationToVector(float orientation) {
-		return new Vector3(Mathf.Cos(orientation), 0, Mathf.Sin(orientation));
+		Vector3 orientationVector = new Vector3(Mathf.Cos(orientation), 0, Mathf.Sin(orientation));
+        return orientationVector;
 	}
 
 }
