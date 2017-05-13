@@ -1,0 +1,17 @@
+/Users/lancer/Documents/Unity/CreativeJam2017/Amuse-gueule/Temp/bin/Debug/UnityEngine.dll
+/Users/lancer/Documents/Unity/CreativeJam2017/Amuse-gueule/Temp/bin/Debug/UnityEditor.dll
+/Users/lancer/Documents/Unity/CreativeJam2017/Amuse-gueule/Temp/bin/Debug/UnityEngine.UI.dll
+/Users/lancer/Documents/Unity/CreativeJam2017/Amuse-gueule/Temp/bin/Debug/UnityEngine.Networking.dll
+/Users/lancer/Documents/Unity/CreativeJam2017/Amuse-gueule/Temp/bin/Debug/UnityEngine.PlaymodeTestsRunner.dll
+/Users/lancer/Documents/Unity/CreativeJam2017/Amuse-gueule/Temp/bin/Debug/UnityEngine.Analytics.dll
+/Users/lancer/Documents/Unity/CreativeJam2017/Amuse-gueule/Temp/bin/Debug/UnityEngine.HoloLens.dll
+/Users/lancer/Documents/Unity/CreativeJam2017/Amuse-gueule/Temp/bin/Debug/UnityEngine.VR.dll
+/Users/lancer/Documents/Unity/CreativeJam2017/Amuse-gueule/Temp/bin/Debug/Mono.Cecil.dll
+/Users/lancer/Documents/Unity/CreativeJam2017/Amuse-gueule/Temp/bin/Debug/Unity.SerializationLogic.dll
+/Users/lancer/Documents/Unity/CreativeJam2017/Amuse-gueule/Temp/bin/Debug/Unity.DataContract.dll
+/Users/lancer/Documents/Unity/CreativeJam2017/Amuse-gueule/Temp/bin/Debug/ICSharpCode.NRefactory.dll
+/Users/lancer/Documents/Unity/CreativeJam2017/Amuse-gueule/Temp/bin/Debug/Unity.UNetWeaver.dll
+/Users/lancer/Documents/Unity/CreativeJam2017/Amuse-gueule/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
+/Users/lancer/Documents/Unity/CreativeJam2017/Amuse-gueule/Temp/bin/Debug/Unity.CecilTools.dll
+/Users/lancer/Documents/Unity/CreativeJam2017/Amuse-gueule/Temp/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/lancer/Documents/Unity/CreativeJam2017/Amuse-gueule/Temp/bin/Debug/Mono.Cecil.Mdb.dll
