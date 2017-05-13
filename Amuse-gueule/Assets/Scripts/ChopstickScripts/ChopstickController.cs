@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArmController : MonoBehaviour
+public class ChopstickController : MonoBehaviour
 {
-    private ArmMovement armMovement;
     private ChopstickMovement chopstickMovement;
+    private LiftFoodScript liftFoodScript;
     private int joystickNumber;
 
     private void Awake()
@@ -15,8 +15,8 @@ public class ArmController : MonoBehaviour
 
     private void InitializeVariables()
     {
-        armMovement = GetComponentInChildren<ArmMovement>();
         chopstickMovement = GetComponentInChildren<ChopstickMovement>();
+        liftFoodScript = GetComponentInParent<LiftFoodScript>();
     }
 
     public void SetController(int joystickNumber)
@@ -26,12 +26,12 @@ public class ArmController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        armMovement.Move(fetchInputs());
+        if (!liftFoodScript.IsLifting) chopstickMovement.Move(fetchInputs());
     }
 
     private void Update ()
     {
-        chopstickMovement.Rotate(fetchInputs());
+        if (!liftFoodScript.IsLifting) chopstickMovement.Rotate(fetchInputs());
     }
 
     Hashtable fetchInputs()

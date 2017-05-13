@@ -23,10 +23,10 @@ public class GrappeFoodScript : MonoBehaviour
             if (chopstickCounter == 2)
             {
                 LiftFoodScript liftFoodScript = other.GetComponentInParent<LiftFoodScript>();
-                
+
                 if (liftFoodScript != null)
                 {
-                    liftFoodScript.NotifyGrappedFood(gameObject);
+                    liftFoodScript.AddGrappedFood(gameObject);
                 }
             }
         }
@@ -35,14 +35,11 @@ public class GrappeFoodScript : MonoBehaviour
     {
         if (other.transform.tag == GameManagerScript.CHOPSTICK)
         {
-            if (chopstickCounter == 2)
-            {
-                LiftFoodScript liftFoodScript = other.GetComponentInParent<LiftFoodScript>();
+            LiftFoodScript liftFoodScript = other.GetComponentInParent<LiftFoodScript>();
 
-                if (liftFoodScript != null)
-                {
-                    liftFoodScript.NotifyGrappedFood(null);
-                }
+            if (liftFoodScript != null)
+            {
+                liftFoodScript.RemoveGrappedFood(gameObject);
             }
 
             chopstickCounter--;

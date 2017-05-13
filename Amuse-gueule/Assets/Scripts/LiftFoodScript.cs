@@ -1,74 +1,131 @@
 ﻿using System.Collections;
+using Boo.Lang;
 using UnityEngine;
 
 public class LiftFoodScript : MonoBehaviour
 {
-    private GameObject grappedFood;
-    private bool leftChopstickLiftingFood;
-    private bool rightChopstickLiftingFood;
+    private List<GameObject> grappedFoods;
+    private bool leftChopTryingToLifting;
+    private bool rightChopTryingToLifting;
+    private float delayMaxTime;
     private bool inDelay;
 
-    private void Awake ()
+    public GameObject leftChopstick;
+    public GameObject rightChopstick;
+
+    private float initialeYposition;
+    private float liftingSpeed;
+
+    public bool IsLifting { get; private set; }
+
+    private void Awake()
     {
         InitializeVariables();
     }
-
-    private void InitializeVariables()
+	
+	private void InitializeVariables()
     {
-        grappedFood = null;
-        leftChopstickLiftingFood = false;
-        rightChopstickLiftingFood = false;
+		grappedFoods = new List<GameObject>();
+        leftChopTryingToLifting = false;
+        rightChopTryingToLifting = false;
+        delayMaxTime = 0.8f;
         inDelay = false;
+        IsLifting = false;
+        initialeYposition = leftChopstick.transform.position.y;
+        liftingSpeed = 0.15f;
     }
 
-    public void NotifyGrappedFood(GameObject grappedFood)
+    public void AddGrappedFood(GameObject grappedFood)
     {
-        this.grappedFood = grappedFood;
-        //if (grappedFood != null) FrameDelay = MaxFrameDelay;
+        this.grappedFoods.Add(grappedFood);
+    }
+
+    public void RemoveGrappedFood(GameObject grappedFood)
+    {
+        this.grappedFoods.Remove(grappedFood);
     }
 
     private void Update()
     {
-        // Si les joueurs tiennent de la nourriture
-        if (grappedFood != null)
+        if (grappedFoods.Count > 0 && !IsLifting)
         {
             Hashtable inputs = FetchInputs();
 
-            // Si un des joueurs tente de soulever la nourriture
-            if ((bool)inputs["holdJoy1Input"] && !leftChopstickLiftingFood)
+            if ((bool)inputs["holdJoy1Input"] && !leftChopTryingToLifting)
             {
-                leftChopstickLiftingFood = true;
+                leftChopTryingToLifting = true;
             }
 
-            if ((bool)inputs["holdJoy2Input"] && !rightChopstickLiftingFood)
+            if ((bool)inputs["holdJoy2Input"] && !rightChopTryingToLifting)
             {
-                rightChopstickLiftingFood = true;
+                rightChopTryingToLifting = true;
             }
 
-            // Si un seul joueur a pesé sur le bouton et aucun délay n'a commencé
-            if (!(leftChopstickLiftingFood && rightChopstickLiftingFood) && (leftChopstickLiftingFood || rightChopstickLiftingFood) && !inDelay)
+            if (!(leftChopTryingToLifting && rightChopTryingToLifting) && (leftChopTryingToLifting || rightChopTryingToLifting) && !inDelay)
             {
                 StartCoroutine(StartDelay());
             }
 
-            if (leftChopstickLiftingFood && rightChopstickLiftingFood)
+            if (leftChopTryingToLifting && rightChopTryingToLifting)
             {
-                print("Grapped in time");
+                StopTryingToLifting();
+                LiftChopstick();
             }
+        }
+
+        if (IsLifting)
+        {
+            foreach (GameObject grappedFood in grappedFoods)
+            {
+                if (grappedFood == null)
+                {
+                    grappedFoods.Remove(grappedFood);
+                }
+                else
+                {
+                    grappedFood.transform.position += new Vector3(0, liftingSpeed, 0);
+                }
+            }
+
+            if (grappedFoods.Count == 0)
+            {
+                leftChopstick.transform.position = new Vector3(leftChopstick.transform.position.x, initialeYposition, leftChopstick.transform.position.z);
+                rightChopstick.transform.position = new Vector3(rightChopstick.transform.position.x, initialeYposition, rightChopstick.transform.position.z);
+                IsLifting = false;
+                return;
+            }
+
+            leftChopstick.transform.position += new Vector3(0, liftingSpeed, 0);
+            rightChopstick.transform.position += new Vector3(0, liftingSpeed, 0);
         }
     }
 
     private IEnumerator StartDelay()
     {
         inDelay = true;
-        yield return new WaitForSeconds(1);
-        leftChopstickLiftingFood = false;
-        rightChopstickLiftingFood = false;
-        inDelay = false;
-        print("to late");
+        yield return  new WaitForSeconds(delayMaxTime);
+        StopTryingToLifting();
     }
 
-    Hashtable FetchInputs()
+    private void StopTryingToLifting()
+    {
+        leftChopTryingToLifting = false;
+        rightChopTryingToLifting = false;
+        inDelay = false;
+    }
+
+    private void LiftChopstick()
+    {
+        IsLifting = true;
+        //rotationPoint = (leftChopstick.transform.position + rightChopstick.transform.position)/2;
+
+        foreach (GameObject grappedFood in grappedFoods)
+        {
+            grappedFood.GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
+
+    private Hashtable FetchInputs()
     {
         Hashtable inputs = new Hashtable();
 

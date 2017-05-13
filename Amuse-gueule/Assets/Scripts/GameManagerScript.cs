@@ -2,11 +2,11 @@
 
 public class GameManagerScript : MonoSingleton<GameManagerScript>
 {
-    public GameObject leftArm;
-    public GameObject rightArm;
+    public GameObject leftChopstick;
+    public GameObject rightChopstick;
 
     public const string CHOPSTICK = "Chopstick";
-    public const string CAN_BE_GRAPPED = "CanBeGrapped";
+    public const string FOOD = "Food";
 
     private void Awake ()
     {
@@ -15,7 +15,7 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
 
     private void SetChopsticksJoystick()
     {
-        leftArm.GetComponent<ArmController>().SetController(1);
-        rightArm.GetComponent<ArmController>().SetController(2);
+        leftChopstick.GetComponent<ChopstickController>().SetController(1);
+        rightChopstick.GetComponent<ChopstickController>().SetController(2);
     }
 }

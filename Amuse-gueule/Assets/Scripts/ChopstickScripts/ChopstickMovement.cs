@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class ChopstickMovement : MonoBehaviour
 {
-    //private Rigidbody rigidBody;
+    private Rigidbody rigidBody;
 
     private float maxRotation;
-    //private float moveSpeed;
+    private float moveSpeed;
 
     private void Awake ()
     {
@@ -15,16 +15,16 @@ public class ChopstickMovement : MonoBehaviour
 
     private void InitializeVariables()
     {
-        //rigidBody = GetComponent<Rigidbody>();
+        rigidBody = GetComponent<Rigidbody>();
         maxRotation = 40f;
-        //moveSpeed = 6f;
+        moveSpeed = 6f;
     }
 
-    /*public void MoveChopstick(Hashtable inputs)
+    public void Move(Hashtable inputs)
     {
         Vector3 moveDirection = new Vector3(moveSpeed * (float)inputs["horizontalInput"], 0, -moveSpeed * (float)inputs["verticalInput"]);
         rigidBody.velocity = moveDirection;
-    }*/
+    }
 
     public void Rotate(Hashtable inputs)
     {
