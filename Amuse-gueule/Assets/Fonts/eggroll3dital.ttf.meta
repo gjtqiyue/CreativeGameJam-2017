@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 54b18cec3a4b0d74eb703a181831a16b
+timeCreated: 1494779699
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Egg Roll 3D Italic
+  fontNames:
+  - Egg Roll 3D Italic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

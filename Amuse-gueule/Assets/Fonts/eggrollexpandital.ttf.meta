@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 6f5ff97ecd2e7374da92f488ab3fa2e2
+timeCreated: 1494779699
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Egg Roll Expanded Italic
+  fontNames:
+  - Egg Roll Expanded Italic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

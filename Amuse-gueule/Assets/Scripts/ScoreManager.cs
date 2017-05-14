@@ -11,10 +11,12 @@ public class ScoreManager : MonoSingleton<ScoreManager>
     public bool insectEaten; // trigger boolean when insect eaten
     public bool comboActivated; // combo activated
     public bool emergencyState;
+    public GameObject chefImage;
 
     public int originalBonusPoints;
 
     public Text textScore;
+    public Text highScore;
 
     public int score;
     private int consecutivesBites;
@@ -26,12 +28,24 @@ public class ScoreManager : MonoSingleton<ScoreManager>
 
     public void InitializeScoreManager()
     {
+        comboActivated = false;
         emergencyState = false;
         timerCombo = originalTimerCombo;
         score = 0;
         consecutivesBites = 0;
         textScore.text = "0";
+        if (ScoreSaveLoad.sortedScores != null && ScoreSaveLoad.sortedScores.Count > 0)
+        {
+            highScore.text = ScoreSaveLoad.sortedScores[0].ToString();
+        }
+        else
+        {
+            highScore.text = "---";
+
+
+        }
     }
+
 
     void Update () {
         if (GameManagerScript.Instance.gameActive) { 
@@ -63,17 +77,12 @@ public class ScoreManager : MonoSingleton<ScoreManager>
                     consecutivesBites = 0;
                 }
 
-                if (timerCombo < 3.0f)
+                if (timerCombo < 2.0f)
                 {
                     emergencyState = true;
                 }
             }
-            switch (consecutivesBites) // play sound
-            {
-                case 2: break;
-
-                case 5: break;
-            }
+            
         }
     }
 
@@ -87,6 +96,16 @@ public class ScoreManager : MonoSingleton<ScoreManager>
         insectEaten = true;
         comboActivated = true;
         consecutivesBites++;
+        switch (consecutivesBites) // play sound
+        {
+            case 2:
+                chefImage.GetComponent<Animator>().Play("ChefSliding");
+                break;
+
+            case 5:
+                chefImage.GetComponent<Animator>().Play("ChefSliding");
+                break;
+        }
     }
 
     public void AddScore()

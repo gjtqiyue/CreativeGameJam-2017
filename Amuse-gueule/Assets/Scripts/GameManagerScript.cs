@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameManagerScript : MonoSingleton<GameManagerScript>
 {
     public bool gameActive = false;
-    public bool startMenuActive = true;
+	public bool startMenuActive = false;
     public bool endMenuActive = false;
 
     public GameObject nameInputField;
@@ -20,6 +20,11 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
 	public GameObject menu;
     public CameraManager cameraManager;
     public Text textTimer;
+    public AudioSource introPreTheme;
+    public AudioSource menuMusicLoop;
+    public AudioSource theme;
+    public AudioSource menuFold;
+    public AudioSource menuPutDown;
 
 	private bool startGame;
     private float gameTimer;
@@ -52,9 +57,10 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
 
     private void InitializeVariables()
     {
+		startMenuActive = true;
         raiseHeadTrigger = false;
         gameOverActivated = false;
-        timeDuration = 10;
+        timeDuration = 60;
         numOfBugs = 10;
         remainingNumOfBugs = 0;
         gameTimer = timeDuration;
@@ -76,15 +82,22 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
 			//start game
             if (Input.GetKeyDown("r"))
             {
+                
                 startMenuActive = false;
                 // Duck head
 				cameraManager.DuckCamera();
 				menu.GetComponentInChildren <AnimFold> ().Fold ();
 				menu.GetComponent <AnimPutdown> ().PutDown ();
+                // play audio
+                menuMusicLoop.Stop();
+                introPreTheme.Play();
             }
+			if (Input.GetKeyDown ("q")) {
+				Application.Quit ();
+			}
         }
         if (gameActive)
-        {
+        {           
             textTimer.text = string.Format("{0:00.00}", gameTimer);
             gameTimer -= Time.deltaTime;
             //end condition 1: time is up
@@ -93,11 +106,17 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
                 textTimer.text = string.Format("{0:00.00}", "0");
                 gameActive = false;               
                 gameOverActivated = true;
+                // audio
+                theme.Stop();
+                menuMusicLoop.Play();
                 // save score
                 cameraManager.RaiseCamera();
+				endMenuActive = true;
                 /*
 			    if (Input.GetButtonDown ("Joy1ButtA") && Input.GetButtonDown ("Joy2ButtA"))
 				    SceneManager.LoadScene ("Main");*/
+
+                DestroyAllFood();
 
                 Debug.Log("Game Over");
             }
@@ -108,24 +127,30 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
                 textTimer.text = string.Format("{0:00.00}", "0");
                 gameActive = false;
                 gameOverActivated = true;
+                // audio
+                theme.Stop();
+                menuMusicLoop.Play();
+
                 cameraManager.RaiseCamera();
+				endMenuActive = true;
+                DestroyAllFood();
                 //pop up a text to say the game over
                 //go to the scoreboard
                 //ask restart? or quit
             }
         }
-        if (endMenuActive)
+    }
+
+    private void DestroyAllFood()
+    {
+        GameObject[] foods = GameObject.FindGameObjectsWithTag(FOOD);
+
+        foreach (GameObject food in foods)
         {
-            if (Input.GetKeyDown("r"))
-            {
-                endMenuActive = false;
-                // Duck head
-
-
-            }
+            Destroy(food);
         }
     }
-	
+
     public void GetName()
     {
         gameCanvas.SetActive(false);
@@ -172,6 +197,8 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
         FoodSpawnerScript.Instance.SpawnFood(numOfBugs);
         remainingNumOfBugs = numOfBugs;
         EnableChopsticks(true);
+        // audio
+        theme.Play();
     }
 		
 
@@ -203,6 +230,11 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
         ScoreSaveLoad.Sort();
 
         scoreCanvas.transform.GetChild(0).GetComponent<Animator>().Play("ScorePanelAnimUp");
+        // Unfold Menu
+        // put up the menu
+        menu.GetComponent<AnimPutdown>().PutUp();
+        menu.GetComponentInChildren<AnimFold>().Unfold();
+        InitializeVariables();
     }
     
 	public void RaiseHead ()

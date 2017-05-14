@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: f1799369fd006db42885d2aec74b1fc3
+timeCreated: 1494779700
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Egg Roll
+  fontNames:
+  - Egg Roll
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: da50645128b946b4dace33380da8a84b
+timeCreated: 1494779700
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Egg Roll Bevel Italic
+  fontNames:
+  - Egg Roll Bevel Italic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

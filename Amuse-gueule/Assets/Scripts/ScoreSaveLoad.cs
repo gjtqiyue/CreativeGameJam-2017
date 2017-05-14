@@ -10,7 +10,7 @@ public class ScoreSaveLoad : MonoSingleton<ScoreSaveLoad> {
     public static List<int> sortedScores = new List<int>();
     public static List<string> sortedNames = new List<string>();
 
-    public void Start()
+    public void Awake()
     {
         Load();
         Sort();

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 2bba78988dadd0b45a2f869ee3ec72ee
-timeCreated: 1494697792
+guid: c1995206a27c9bc4586fe0279896b90b
+timeCreated: 1494784036
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -52,6 +52,8 @@ ModelImporter:
     4300004: Object002
     4300006: Object003
     4300008: Object004
+    7400000: squirming
+    7400002: walk
     9500000: //RootNode
     13700000: dino 02
     13700002: Object002
@@ -78,7 +80,139 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: squirming
+      takeName: Take 001
+      firstFrame: 100
+      lastFrame: 150
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone006
+        weight: 1
+      - path: Bone006/Bone001
+        weight: 1
+      - path: Bone006/Bone002
+        weight: 1
+      - path: Bone006/Bone004
+        weight: 1
+      - path: Bone006/Bone005
+        weight: 1
+      - path: Bone006/Bone007
+        weight: 1
+      - path: Bone006/Bone008
+        weight: 1
+      - path: Bone009
+        weight: 1
+      - path: Bone009/Bone010
+        weight: 1
+      - path: Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone012
+        weight: 1
+      - path: Bone012/Bone013
+        weight: 1
+      - path: Bone012/Bone013/Bone014
+        weight: 1
+      - path: dino 02
+        weight: 1
+      - path: Object001
+        weight: 1
+      - path: Object002
+        weight: 1
+      - path: Object003
+        weight: 1
+      - path: Object004
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: walk
+      takeName: Take 001
+      firstFrame: 40
+      lastFrame: 80
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone006
+        weight: 1
+      - path: Bone006/Bone001
+        weight: 1
+      - path: Bone006/Bone002
+        weight: 1
+      - path: Bone006/Bone004
+        weight: 1
+      - path: Bone006/Bone005
+        weight: 1
+      - path: Bone006/Bone007
+        weight: 1
+      - path: Bone006/Bone008
+        weight: 1
+      - path: Bone009
+        weight: 1
+      - path: Bone009/Bone010
+        weight: 1
+      - path: Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone012
+        weight: 1
+      - path: Bone012/Bone013
+        weight: 1
+      - path: Bone012/Bone013/Bone014
+        weight: 1
+      - path: dino 02
+        weight: 1
+      - path: Object001
+        weight: 1
+      - path: Object002
+        weight: 1
+      - path: Object003
+        weight: 1
+      - path: Object004
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []

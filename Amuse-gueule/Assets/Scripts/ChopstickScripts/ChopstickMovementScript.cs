@@ -29,6 +29,6 @@ public class ChopstickMovementScript : MonoBehaviour
     public void Rotate(Hashtable inputs)
     {
         Vector3 direction = -new Vector3((float)inputs["rightStickYInput"], 0, (float)inputs["rightStickXInput"]);
-        transform.rotation = Quaternion.AngleAxis(maxRotation * direction.magnitude, direction);
+        transform.rotation = Quaternion.AngleAxis(maxRotation * direction.magnitude, direction) * Quaternion.Euler(90, 0, 0);
     }
 }
