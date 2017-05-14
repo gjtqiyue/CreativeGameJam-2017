@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 544b3fcdd41564b4fb5ffdb2f595728a
+timeCreated: 1494779699
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Egg Roll Gradient Italic
+  fontNames:
+  - Egg Roll Gradient Italic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

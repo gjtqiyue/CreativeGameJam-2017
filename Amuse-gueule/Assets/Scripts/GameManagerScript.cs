@@ -54,7 +54,7 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
     {
         raiseHeadTrigger = false;
         gameOverActivated = false;
-        timeDuration = 10;
+        timeDuration = 60;
         numOfBugs = 10;
         remainingNumOfBugs = 0;
         gameTimer = timeDuration;

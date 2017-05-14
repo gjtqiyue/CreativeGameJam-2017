@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 141897e556f3ad948b3a3991e49d6231
+timeCreated: 1494779699
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Egg Roll Jumbled Italic
+  fontNames:
+  - Egg Roll Jumbled Italic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

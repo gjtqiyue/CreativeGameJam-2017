@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: e92eace6c34558f48b4b09580de5ae0e
+timeCreated: 1494779700
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Egg Roll Condensed
+  fontNames:
+  - Egg Roll Condensed
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

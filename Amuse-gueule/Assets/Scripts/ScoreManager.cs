@@ -11,6 +11,7 @@ public class ScoreManager : MonoSingleton<ScoreManager>
     public bool insectEaten; // trigger boolean when insect eaten
     public bool comboActivated; // combo activated
     public bool emergencyState;
+    public GameObject chefImage;
 
     public int originalBonusPoints;
 
@@ -68,12 +69,7 @@ public class ScoreManager : MonoSingleton<ScoreManager>
                     emergencyState = true;
                 }
             }
-            switch (consecutivesBites) // play sound
-            {
-                case 2: break;
-
-                case 5: break;
-            }
+            
         }
     }
 
@@ -87,6 +83,16 @@ public class ScoreManager : MonoSingleton<ScoreManager>
         insectEaten = true;
         comboActivated = true;
         consecutivesBites++;
+        switch (consecutivesBites) // play sound
+        {
+            case 2:
+                chefImage.GetComponent<Animator>().Play("ChefSliding");
+                break;
+
+            case 5:
+                chefImage.GetComponent<Animator>().Play("ChefSliding");
+                break;
+        }
     }
 
     public void AddScore()
