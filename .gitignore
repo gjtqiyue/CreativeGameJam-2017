@@ -33,6 +33,11 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-Phoenix/Library
-Phoenix/Temp/UnityLockfile
-Phoenix/Temp
+Amuse-gueule/Library/*
+/Amuse-gueule/Library/*
+Amuse-gueule/Library/metadata/* 
+/Amuse-gueule/Library/metadata/* 
+Amuse-gueule/Temp/*
+/Amuse-gueule/Temp/*
+Amuse-gueule/Library/ShaderCache/*
+/Amuse-gueule/Library/ShaderCache/*
