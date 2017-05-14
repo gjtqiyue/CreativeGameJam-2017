@@ -11,7 +11,7 @@ public class LookAtCamera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		var cam = GameObject.Find ("Main Camera");
+		var cam = GameObject.Find ("Main Camera Environment");
 		gameObject.transform.LookAt (cam.transform);
 	}
 }

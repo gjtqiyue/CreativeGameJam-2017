@@ -3,22 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System;
+
 
 public class GameManagerScript : MonoSingleton<GameManagerScript>
 {
-    public bool gameActive = true;
-    public bool startMenuActive = false;
+    public bool gameActive = false;
+    public bool startMenuActive = true;
     public bool endMenuActive = false;
 
     public GameObject nameInputField;
     public float timeDuration;
     public int numOfBugs;
     public int remainingNumOfBugs;
-    [HideInInspector]
+	[HideInInspector]
     public ScoreManager scoreManager;
+	public GameObject menu;
     public CameraManager cameraManager;
 
+	private bool startGame;
     private float gameTimer;
     private bool gameOverActivated;
     private bool raiseHeadTrigger;
@@ -35,6 +37,7 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
         gameOverActivated = false;
         remainingNumOfBugs = numOfBugs;
         gameTimer = timeDuration;
+		cameraManager = Camera.main.GetComponent <CameraManager> ();
         scoreManager = GetComponent<ScoreManager>();
     }
 
@@ -42,11 +45,14 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
     {
         if (startMenuActive)
         {
+			//start game
             if (Input.GetKeyDown("r"))
             {
                 startMenuActive = false;
                 // Duck head
-
+				cameraManager.DuckCamera();
+				menu.GetComponentInChildren <AnimFold> ().Fold ();
+				menu.GetComponent <AnimPutdown> ().PutDown ();
             }
         }
         if (gameActive)
@@ -58,7 +64,6 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
                 gameActive = false;               
                 gameOverActivated = true;
                 // save score
-                RaiseHead();
                 cameraManager.RaiseCamera();
                 /*
 			    if (Input.GetButtonDown ("Joy1ButtA") && Input.GetButtonDown ("Joy2ButtA"))
@@ -93,7 +98,13 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
         nameInputField.SetActive(true);
     }
 
-    public void StartGame()
+	public void StartGame ()
+	{
+		gameActive = true;
+	}
+		
+
+    public void ReStartGame()
     {
         InitializeVariables();
     }
@@ -145,5 +156,6 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
 			return true;
 		else
 			return false;
+
 	}
 }

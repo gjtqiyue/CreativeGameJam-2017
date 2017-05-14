@@ -6,13 +6,8 @@ public class CameraManager : MonoBehaviour {
 
 	public Animator anim;
 
-	// Use this for initialization
-	void Start () {
-		anim = GetComponent <Animator> ();
-	}
-
-	// Update is called once per frame
 	public void RaiseCamera () {
+		anim = GetComponent<Animator> ();
 		anim.Play ("RaiseHead");
 	}
 
@@ -21,4 +16,16 @@ public class CameraManager : MonoBehaviour {
         Debug.Log("Camera Raised");
         GameManagerScript.Instance.GetName();
     }
+
+	public void DuckCamera () {
+		anim = GetComponent<Animator> ();
+		anim.Play ("Duckhead");
+	}
+
+	public void ActionAfterCameraDucked()
+	{
+		Debug.Log("Camera Ducked");
+		GameManagerScript.Instance.StartGame ();
+
+	}
 }
