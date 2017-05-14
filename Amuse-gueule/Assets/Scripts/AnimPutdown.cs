@@ -5,6 +5,8 @@ using UnityEngine;
 public class AnimPutdown : MonoBehaviour {
 
 	public Animator anim;
+    public AudioSource menuPutDownAudio;
+    public AudioSource grognementAudio;
 
 	// Use this for initialization
 	void Start () {
@@ -18,4 +20,14 @@ public class AnimPutdown : MonoBehaviour {
 	public void PutDown () {
 		anim.Play ("Putdown");
 	}
+
+    public void playSFXPutDown()
+    {
+        menuPutDownAudio.Play();
+    }
+
+    public void playGrognement()
+    {
+        grognementAudio.Play();
+    }
 }
