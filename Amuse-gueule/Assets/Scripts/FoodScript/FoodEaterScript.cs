@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FoodEaterScript : MonoBehaviour
 {
@@ -9,7 +7,8 @@ public class FoodEaterScript : MonoBehaviour
         if (other.transform.tag == GameManagerScript.FOOD)
         {
             Destroy(other.gameObject);
-            // Change the score...
+            ScoreManager.Instance.Eat();
+            GameManagerScript.Instance.remainingNumOfBugs--;
         }
     }
 }

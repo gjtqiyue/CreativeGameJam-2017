@@ -121,7 +121,7 @@ public class CollisionAvoidance : MonoBehaviour {
 
         if (distance > 0)
         {
-            Debug.Log("collision avoidance vector values" +  acceleration / distance * distance);
+            //Debug.Log("collision avoidance vector values" +  acceleration / distance * distance);
             return acceleration / distance * distance;
         }
 

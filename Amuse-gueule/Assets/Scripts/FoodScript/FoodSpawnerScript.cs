@@ -29,10 +29,9 @@ public class FoodSpawnerScript : MonoSingleton<FoodSpawnerScript>
 
     private Vector3 GenerateRandomPosition()
     {
-        float xPos = Random.Range(-spawnArea.bounds.size.x / 2 * spawnThreshold, spawnArea.bounds.size.x / 2 * spawnThreshold);
-        float yPos = spawnArea.transform.position.y;
-        float zPos = Random.Range(-spawnArea.bounds.size.z / 2 * spawnThreshold, spawnArea.bounds.size.z / 2 * spawnThreshold);
-        Vector3 randomPosition = new Vector3(xPos, yPos, zPos);
+        float localXPos = Random.Range(-spawnArea.bounds.size.x / 2 * spawnThreshold, spawnArea.bounds.size.x / 2 * spawnThreshold);
+        float localZPos = Random.Range(-spawnArea.bounds.size.z / 2 * spawnThreshold, spawnArea.bounds.size.z / 2 * spawnThreshold);
+        Vector3 randomPosition = new Vector3(localXPos, 0, localZPos) + spawnArea.transform.position;
         return randomPosition;
     }
 }
