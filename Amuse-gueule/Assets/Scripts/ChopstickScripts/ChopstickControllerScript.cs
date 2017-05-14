@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChopstickController : MonoBehaviour
+public class ChopstickControllerScript : MonoBehaviour
 {
-    private ChopstickMovement chopstickMovement;
+    private ChopstickMovementScript chopstickMovement;
     private FoodLifterScript foodLifterScript;
     private int joystickNumber;
 
@@ -15,7 +15,7 @@ public class ChopstickController : MonoBehaviour
 
     private void InitializeVariables()
     {
-        chopstickMovement = GetComponentInChildren<ChopstickMovement>();
+        chopstickMovement = GetComponentInChildren<ChopstickMovementScript>();
         foodLifterScript = GetComponentInParent<FoodLifterScript>();
     }
 

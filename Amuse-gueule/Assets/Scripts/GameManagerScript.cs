@@ -11,11 +11,12 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
     private void Awake ()
     {
         SetChopsticksJoystick();
+        FoodSpawnerScript.Instance.GetComponent<FoodSpawnerScript>().SpawnFood(10);
     }
 
     private void SetChopsticksJoystick()
     {
-        leftChopstick.GetComponent<ChopstickController>().SetController(1);
-        rightChopstick.GetComponent<ChopstickController>().SetController(2);
+        leftChopstick.GetComponent<ChopstickControllerScript>().SetController(1);
+        rightChopstick.GetComponent<ChopstickControllerScript>().SetController(2);
     }
 }
