@@ -29,6 +29,7 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
     void Start()
     {
         InitializeVariables();
+        menu.GetComponentInChildren<AnimFold>().Unfold();
     }
 
     private void InitializeVariables()
@@ -88,6 +89,7 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
             {
                 endMenuActive = false;
                 // Duck head
+
 
             }
         }

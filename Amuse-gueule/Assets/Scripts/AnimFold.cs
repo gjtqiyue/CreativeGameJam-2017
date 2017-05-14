@@ -13,4 +13,9 @@ public class AnimFold : MonoBehaviour {
 	public void Fold () {
 		anim.Play ("Fold");
 	}
+
+    public void Unfold()
+    {
+        anim.Play("Unfold");
+    }
 }
