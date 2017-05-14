@@ -11,6 +11,10 @@ public class AnimPutdown : MonoBehaviour {
 		anim = GetComponent <Animator> ();
 	}
 
+	public void PutUp () {
+		anim.Play ("Putup");
+	}
+
 	public void PutDown () {
 		anim.Play ("Putdown");
 	}
