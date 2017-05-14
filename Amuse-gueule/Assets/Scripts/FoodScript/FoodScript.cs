@@ -16,28 +16,25 @@ public class FoodScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == GameManagerScript.CHOPSTICK)
+        FoodLifterScript liftFoodScript = other.GetComponentInParent<FoodLifterScript>();
+
+        if (liftFoodScript != null && !liftFoodScript.IsLifting && other.transform.tag == GameManagerScript.CHOPSTICK)
         {
             chopstickCounter++;
 
             if (chopstickCounter == 2)
             {
-                FoodLifterScript liftFoodScript = other.GetComponentInParent<FoodLifterScript>();
-
-                if (liftFoodScript != null)
-                {
-                    liftFoodScript.AddGrappedFood(gameObject);
-                }
+                liftFoodScript.AddGrappedFood(gameObject);
             }
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.transform.tag == GameManagerScript.CHOPSTICK)
-        {
-            FoodLifterScript liftFoodScript = other.GetComponentInParent<FoodLifterScript>();
+        FoodLifterScript liftFoodScript = other.GetComponentInParent<FoodLifterScript>();
 
-            if (liftFoodScript != null)
+        if (liftFoodScript != null && !liftFoodScript.IsLifting && other.transform.tag == GameManagerScript.CHOPSTICK)
+        {
+            if (chopstickCounter == 2)
             {
                 liftFoodScript.RemoveGrappedFood(gameObject);
             }
