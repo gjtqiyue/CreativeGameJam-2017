@@ -13,6 +13,7 @@ public class ScoreSaveLoad : MonoSingleton<ScoreSaveLoad> {
     public void Start()
     {
         Load();
+        Sort();
         print(Application.persistentDataPath);
     }
 
@@ -65,7 +66,7 @@ public class ScoreSaveLoad : MonoSingleton<ScoreSaveLoad> {
             for (int i = 0; i < n - 1; i++)
             {
                 k = i + 1;
-                if (sortedScores[i] > sortedScores[k])
+                if (sortedScores[i] < sortedScores[k])
                 {
                     int tempScore = sortedScores[i];
                     string tempName = sortedNames[i];

@@ -12,6 +12,8 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
     public bool endMenuActive = false;
 
     public GameObject nameInputField;
+    public GameObject scoreCanvas;
+    public GameObject gameCanvas;
     public float timeDuration;
     public int numOfBugs;
     public int remainingNumOfBugs;
@@ -19,6 +21,7 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
     public ScoreManager scoreManager;
 	public GameObject menu;
     public CameraManager cameraManager;
+    public Text textTimer;
 
 	private bool startGame;
     private float gameTimer;
@@ -40,6 +43,9 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
         gameTimer = timeDuration;
 		cameraManager = Camera.main.GetComponent <CameraManager> ();
         scoreManager = GetComponent<ScoreManager>();
+        scoreManager.InitializeScoreManager();
+        textTimer.text = string.Format("{0:00.00}", "0");
+
     }
 
     void Update()
@@ -58,10 +64,12 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
         }
         if (gameActive)
         {
+            textTimer.text = string.Format("{0:00.00}", gameTimer);
             gameTimer -= Time.deltaTime;
             //end condition 1: time is up
             if (!gameOverActivated && TimeIsUp())
             {
+                textTimer.text = string.Format("{0:00.00}", "0");
                 gameActive = false;               
                 gameOverActivated = true;
                 // save score
@@ -75,6 +83,7 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
             //end condition 2: eat all the things
             if (!gameOverActivated && NoBugsLeft())
             {
+                textTimer.text = string.Format("{0:00.00}", "0");
                 gameActive = false;
                 gameOverActivated = true;
                 RaiseHead();
@@ -97,12 +106,33 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
 	
     public void GetName()
     {
+        gameCanvas.SetActive(false);
+        scoreCanvas.SetActive(true);
+        Transform panel = scoreCanvas.transform.GetChild(0);
+        Transform names = panel.transform.FindChild("Names");
+        Transform scores = panel.transform.FindChild("Scores");
+
+        int i = 0;
+        foreach (Transform child in names)
+        {
+            child.GetComponent<Text>().text = ScoreSaveLoad.sortedNames[i];
+            i++;
+        }
+
+        i = 0;
+        foreach (Transform child in scores)
+        {
+            child.GetComponent<Text>().text = ScoreSaveLoad.sortedScores[i].ToString();
+            i++;
+        }
+        panel.transform.FindChild("YourScore").GetComponent<Text>().text = scoreManager.score.ToString();
         nameInputField.SetActive(true);
     }
 
 	public void StartGame ()
 	{
 		gameActive = true;
+        gameCanvas.SetActive(true);
 	}
 		
 
@@ -132,6 +162,9 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
         ScoreSaveLoad.AddScore(name, scoreManager.score);
         ScoreSaveLoad.Save();
         ScoreSaveLoad.Sort();
+
+        
+        scoreCanvas.SetActive(false);
 
     }
     

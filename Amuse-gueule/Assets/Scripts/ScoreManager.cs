@@ -14,19 +14,23 @@ public class ScoreManager : MonoBehaviour {
 
     public int originalBonusPoints;
 
-    public Text textTimer;
     public Text textScore;
 
     public int score;
     private int consecutivesBites;
 
 
-    void Start () {
+    void Start() {
+        InitializeScoreManager();
+    }
+
+    public void InitializeScoreManager()
+    {
         emergencyState = false;
         timerCombo = originalTimerCombo;
-        textTimer.text = timerCombo.ToString();
         score = 0;
         consecutivesBites = 0;
+        textScore.text = "0";
     }
 
     void Update () {
@@ -48,7 +52,6 @@ public class ScoreManager : MonoBehaviour {
                 }
 
                 timerCombo -= Time.deltaTime;
-                textTimer.text = string.Format("{0:00.00}", timerCombo);
                 insectEaten = false;
 
                 if (timerCombo < 0.0f)
@@ -65,18 +68,24 @@ public class ScoreManager : MonoBehaviour {
                     emergencyState = true;
                 }
             }
+            switch (consecutivesBites) // play sound
+            {
+                case 2: break;
+
+                case 5: break;
+            }
         }
     }
 
     private void ResetTimerCombo()
     {
         timerCombo = originalTimerCombo;
-        textTimer.text = string.Format("{0:00.00}", timerCombo);
     }
 
     private void AddScore()
     {
         score += currentBonusPoints;
-        textScore.text = "Score " + score.ToString(); // update score text
+        textScore.GetComponent<Animator>().Play("ZoomInOut");
+        textScore.text = score.ToString(); // update score text
     }
 }
