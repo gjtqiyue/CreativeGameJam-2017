@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameManagerScript : MonoSingleton<GameManagerScript>
 {
     public bool gameActive = false;
-    public bool startMenuActive = true;
+	public bool startMenuActive = false;
     public bool endMenuActive = false;
 
     public GameObject nameInputField;
@@ -52,6 +52,7 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
 
     private void InitializeVariables()
     {
+		startMenuActive = true;
         raiseHeadTrigger = false;
         gameOverActivated = false;
         timeDuration = 10;
@@ -82,6 +83,9 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
 				menu.GetComponentInChildren <AnimFold> ().Fold ();
 				menu.GetComponent <AnimPutdown> ().PutDown ();
             }
+			if (Input.GetKeyDown ("q")) {
+				Application.Quit ();
+			}
         }
         if (gameActive)
         {
@@ -95,6 +99,7 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
                 gameOverActivated = true;
                 // save score
                 cameraManager.RaiseCamera();
+				endMenuActive = true;
                 /*
 			    if (Input.GetButtonDown ("Joy1ButtA") && Input.GetButtonDown ("Joy2ButtA"))
 				    SceneManager.LoadScene ("Main");*/
@@ -109,6 +114,7 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
                 gameActive = false;
                 gameOverActivated = true;
                 cameraManager.RaiseCamera();
+				endMenuActive = true;
                 //pop up a text to say the game over
                 //go to the scoreboard
                 //ask restart? or quit
@@ -119,9 +125,11 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
             if (Input.GetKeyDown("r"))
             {
                 endMenuActive = false;
-                // Duck head
-
-
+                // put up the menu
+				menu.GetComponent <AnimPutdown> ().PutUp ();
+				menu.GetComponentInChildren <AnimFold> ().Unfold();
+				Debug.Log ("Restart Game");
+				InitializeVariables ();
             }
         }
     }
