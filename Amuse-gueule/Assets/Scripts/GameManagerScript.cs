@@ -17,8 +17,6 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
     public float timeDuration;
     public int numOfBugs;
     public int remainingNumOfBugs;
-	[HideInInspector]
-    public ScoreManager scoreManager;
 	public GameObject menu;
     public CameraManager cameraManager;
     public Text textTimer;
@@ -28,24 +26,47 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
     private bool gameOverActivated;
     private bool raiseHeadTrigger;
 
+    public GameObject leftChopstick;
+    public GameObject rightChopstick;
+
+    public const string CHOPSTICK = "Chopstick";
+    public const string FOOD = "Food";
+
+    void Awake()
+    {
+        SetChopsticksJoystick();
+    }
 
     void Start()
     {
         InitializeVariables();
+        EnableChopsticks(false);
         menu.GetComponentInChildren<AnimFold>().Unfold();
+    }
+
+    private void SetChopsticksJoystick()
+    {
+        leftChopstick.GetComponent<ChopstickControllerScript>().SetController(1);
+        rightChopstick.GetComponent<ChopstickControllerScript>().SetController(2);
     }
 
     private void InitializeVariables()
     {
         raiseHeadTrigger = false;
         gameOverActivated = false;
-        remainingNumOfBugs = numOfBugs;
+        timeDuration = 10;
+        numOfBugs = 10;
+        remainingNumOfBugs = 0;
         gameTimer = timeDuration;
 		cameraManager = Camera.main.GetComponent <CameraManager> ();
-        scoreManager = GetComponent<ScoreManager>();
-        scoreManager.InitializeScoreManager();
+        ScoreManager.Instance.InitializeScoreManager();
         textTimer.text = string.Format("{0:00.00}", "0");
+    }
 
+    private void EnableChopsticks(bool enable)
+    {
+        leftChopstick.GetComponent<ChopstickControllerScript>().EnableControls(enable);
+        rightChopstick.GetComponent<ChopstickControllerScript>().EnableControls(enable);
     }
 
     void Update()
@@ -83,10 +104,11 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
             //end condition 2: eat all the things
             if (!gameOverActivated && NoBugsLeft())
             {
+                Debug.Log("Game over");
                 textTimer.text = string.Format("{0:00.00}", "0");
                 gameActive = false;
                 gameOverActivated = true;
-                RaiseHead();
+                cameraManager.RaiseCamera();
                 //pop up a text to say the game over
                 //go to the scoreboard
                 //ask restart? or quit
@@ -107,7 +129,7 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
     public void GetName()
     {
         gameCanvas.SetActive(false);
-        scoreCanvas.SetActive(true);
+        scoreCanvas.transform.GetChild(0).GetComponent<Animator>().Play("ScorePanelAnimDown");
         Transform panel = scoreCanvas.transform.GetChild(0);
         Transform names = panel.transform.FindChild("Names");
         Transform scores = panel.transform.FindChild("Scores");
@@ -115,17 +137,31 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
         int i = 0;
         foreach (Transform child in names)
         {
-            child.GetComponent<Text>().text = ScoreSaveLoad.sortedNames[i];
-            i++;
+            if (i < ScoreSaveLoad.sortedNames.Count)
+            {
+                child.GetComponent<Text>().text = ScoreSaveLoad.sortedNames[i];
+                i++;
+            }
+            else
+            {
+                break;
+            }
         }
 
         i = 0;
         foreach (Transform child in scores)
         {
-            child.GetComponent<Text>().text = ScoreSaveLoad.sortedScores[i].ToString();
-            i++;
+            if (i < ScoreSaveLoad.sortedScores.Count)
+            {
+                child.GetComponent<Text>().text = ScoreSaveLoad.sortedScores[i].ToString();
+                i++;
+            }
+            else
+            {
+                break;
+            }
         }
-        panel.transform.FindChild("YourScore").GetComponent<Text>().text = scoreManager.score.ToString();
+        panel.transform.FindChild("YourScore").GetComponent<Text>().text = ScoreManager.Instance.score.ToString();
         nameInputField.SetActive(true);
     }
 
@@ -133,7 +169,10 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
 	{
 		gameActive = true;
         gameCanvas.SetActive(true);
-	}
+        FoodSpawnerScript.Instance.SpawnFood(numOfBugs);
+        remainingNumOfBugs = numOfBugs;
+        EnableChopsticks(true);
+    }
 		
 
     public void ReStartGame()
@@ -143,9 +182,9 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
 
     public void EndGame(string name)
     {
+        EnableChopsticks(false);
         ManageScore(name);
         // Do end game actions
-
         endMenuActive = true;
     }
 
@@ -159,13 +198,11 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
         {
             Debug.Log("Main Input Empty");
         }
-        ScoreSaveLoad.AddScore(name, scoreManager.score);
+        ScoreSaveLoad.AddScore(name, ScoreManager.Instance.score);
         ScoreSaveLoad.Save();
         ScoreSaveLoad.Sort();
 
-        
-        scoreCanvas.SetActive(false);
-
+        scoreCanvas.transform.GetChild(0).GetComponent<Animator>().Play("ScorePanelAnimUp");
     }
     
 	public void RaiseHead ()

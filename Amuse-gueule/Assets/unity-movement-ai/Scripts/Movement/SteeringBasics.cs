@@ -28,7 +28,7 @@ public class SteeringBasics : MonoBehaviour {
 
 	public bool smoothing = true;
 	public int numSamplesForSmoothing = 5;
-	private Queue<Vector2> velocitySamples = new Queue<Vector2>();
+	private Queue<Vector3> velocitySamples = new Queue<Vector3>();
 
 	// Use this for initialization
 	void Start () {
@@ -53,8 +53,8 @@ public class SteeringBasics : MonoBehaviour {
 		//Get the direction
 		Vector3 acceleration = targetPosition - transform.position;
 		
-		//Remove the z coordinate
-		acceleration.z = 0;
+		//Remove the y coordinate
+		acceleration.y = 0;
 		
 		acceleration.Normalize ();
 		
@@ -71,7 +71,7 @@ public class SteeringBasics : MonoBehaviour {
 
     /* Makes the current game object look where he is going */
     public void lookWhereYoureGoing() {
-		Vector2 direction = rb.velocity;
+		Vector3 direction = rb.velocity;
 
 		if (smoothing) {
 			if (velocitySamples.Count == numSamplesForSmoothing) {
@@ -80,40 +80,40 @@ public class SteeringBasics : MonoBehaviour {
 
 			velocitySamples.Enqueue (rb.velocity);
 
-			direction = Vector2.zero;
+			direction = Vector3.zero;
 
-			foreach (Vector2 v in velocitySamples) {
+			foreach (Vector3 v in velocitySamples) {
 				direction += v;
 			}
 
 			direction /= velocitySamples.Count;
 		}
-
 		lookAtDirection (direction);
+        
 	}
 
-	public void lookAtDirection(Vector2 direction) {
+	public void lookAtDirection(Vector3 direction) {
 		direction.Normalize();
 		
 		// If we have a non-zero direction then look towards that direciton otherwise do nothing
 		if (direction.sqrMagnitude > 0.001f) {
-			float toRotation = (Mathf.Atan2 (direction.y, direction.x) * Mathf.Rad2Deg);
-			float rotation = Mathf.LerpAngle(transform.rotation.eulerAngles.z, toRotation, Time.deltaTime*turnSpeed);
+			float toRotation = (Mathf.Atan2 (direction.z, direction.x) * Mathf.Rad2Deg);
+			float rotation = Mathf.LerpAngle(transform.rotation.eulerAngles.y, toRotation, Time.deltaTime*turnSpeed);
 			
-			transform.rotation = Quaternion.Euler(0, 0, rotation);
-		}
+			transform.rotation = Quaternion.Euler(0, rotation, 0);
+        }
 	}
 
     public void lookAtDirection(Quaternion toRotation)
     {
-        lookAtDirection(toRotation.eulerAngles.z);
+        lookAtDirection(toRotation.eulerAngles.y);
     }
 
     public void lookAtDirection(float toRotation)
     {
-            float rotation = Mathf.LerpAngle(transform.rotation.eulerAngles.z, toRotation, Time.deltaTime * turnSpeed);
+            float rotation = Mathf.LerpAngle(transform.rotation.eulerAngles.y, toRotation, Time.deltaTime * turnSpeed);
 
-            transform.rotation = Quaternion.Euler(0, 0, rotation);
+            transform.rotation = Quaternion.Euler(0, rotation, 0);
     }
 
     /* Returns the steering for a character so it arrives at the target */
@@ -121,8 +121,8 @@ public class SteeringBasics : MonoBehaviour {
 		/* Get the right direction for the linear acceleration */
 		Vector3 targetVelocity = targetPosition - transform.position;
 
-		// Remove the z coordinate
-		targetVelocity.z = 0;
+		// Remove the y coordinate
+		targetVelocity.y = 0;
 		
 		/* Get the distance to the target */
 		float dist = targetVelocity.magnitude;
@@ -146,7 +146,7 @@ public class SteeringBasics : MonoBehaviour {
 		targetVelocity *= targetSpeed;
 		
 		/* Calculate the linear acceleration we want */
-		Vector3 acceleration = targetVelocity - new Vector3(rb.velocity.x, rb.velocity.y, 0);
+		Vector3 acceleration = targetVelocity - new Vector3(rb.velocity.x, 0, rb.velocity.z);
 		/*
 		 Rather than accelerate the character to the correct speed in 1 second, 
 		 accelerate so we reach the desired speed in timeToTarget seconds 
@@ -194,8 +194,8 @@ public class SteeringBasics : MonoBehaviour {
 
     public static float getBoundingRadius(Transform t)
     {
-        SphereCollider col = t.GetComponent<SphereCollider>();
-        return Mathf.Max(t.localScale.x, t.localScale.y, t.localScale.z) * col.radius;
+        BoxCollider col = t.GetComponent<BoxCollider>();
+        return Mathf.Max(t.localScale.x, t.localScale.y, t.localScale.z)*1.1f;  // col.radius;
     }
 
 }

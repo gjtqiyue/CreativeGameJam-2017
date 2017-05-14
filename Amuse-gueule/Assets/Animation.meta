@@ -1,7 +1,11 @@
 fileFormatVersion: 2
 guid: d5edfdb7b88655448b28d0aa414ceca7
 folderAsset: yes
+<<<<<<< HEAD:Amuse-gueule/Assets/Animation.meta
 timeCreated: 1494703874
+=======
+timeCreated: 1494720709
+>>>>>>> dev:Amuse-gueule/Assets/Models.meta
 licenseType: Free
 DefaultImporter:
   userData: 
