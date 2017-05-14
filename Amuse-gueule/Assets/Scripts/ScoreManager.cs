@@ -16,6 +16,7 @@ public class ScoreManager : MonoSingleton<ScoreManager>
     public int originalBonusPoints;
 
     public Text textScore;
+    public Text highScore;
 
     public int score;
     private int consecutivesBites;
@@ -33,7 +34,18 @@ public class ScoreManager : MonoSingleton<ScoreManager>
         score = 0;
         consecutivesBites = 0;
         textScore.text = "0";
+        if (ScoreSaveLoad.sortedScores != null && ScoreSaveLoad.sortedScores.Count > 0)
+        {
+            highScore.text = ScoreSaveLoad.sortedScores[0].ToString();
+        }
+        else
+        {
+            highScore.text = "---";
+
+
+        }
     }
+
 
     void Update () {
         if (GameManagerScript.Instance.gameActive) { 
@@ -65,7 +77,7 @@ public class ScoreManager : MonoSingleton<ScoreManager>
                     consecutivesBites = 0;
                 }
 
-                if (timerCombo < 3.0f)
+                if (timerCombo < 2.0f)
                 {
                     emergencyState = true;
                 }
