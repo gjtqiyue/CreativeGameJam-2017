@@ -77,7 +77,6 @@ public class FoodLifterScript : MonoBehaviour
             {
                 StopTryingToLifting();
                 LiftChopstick();
-                print("lift off");
             }
         }
 

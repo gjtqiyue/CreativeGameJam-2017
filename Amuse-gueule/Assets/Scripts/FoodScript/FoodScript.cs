@@ -28,6 +28,7 @@ public class FoodScript : MonoBehaviour
             }
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         FoodLifterScript liftFoodScript = other.GetComponentInParent<FoodLifterScript>();
