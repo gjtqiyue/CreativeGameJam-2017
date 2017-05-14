@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ChopstickControllerScript : MonoBehaviour
@@ -7,6 +6,8 @@ public class ChopstickControllerScript : MonoBehaviour
     private ChopstickMovementScript chopstickMovement;
     private FoodLifterScript foodLifterScript;
     private int joystickNumber;
+
+    public bool IsActif { get; private set; }
 
     private void Awake()
     {
@@ -24,14 +25,19 @@ public class ChopstickControllerScript : MonoBehaviour
         this.joystickNumber = joystickNumber;
     }
 
+    public void EnableControls(bool enable)
+    {
+        IsActif = enable;
+    }
+
     private void FixedUpdate()
     {
-        if (!foodLifterScript.IsLifting) chopstickMovement.Move(fetchInputs());
+        if (IsActif && !foodLifterScript.IsLifting) chopstickMovement.Move(fetchInputs());
     }
 
     private void Update ()
     {
-        if (!foodLifterScript.IsLifting) chopstickMovement.Rotate(fetchInputs());
+        if (IsActif && !foodLifterScript.IsLifting) chopstickMovement.Rotate(fetchInputs());
     }
 
     Hashtable fetchInputs()

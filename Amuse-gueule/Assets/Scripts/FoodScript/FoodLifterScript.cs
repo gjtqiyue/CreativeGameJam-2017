@@ -90,17 +90,18 @@ public class FoodLifterScript : MonoBehaviour
 
         if (IsLifting)
         {
+            bool allGrappedFoodEated = true;
+
             foreach (GameObject grappedFood in grappedFoods)
             {
-                if (grappedFood == null)
+                if (grappedFood != null)
                 {
-                    grappedFoods.Remove(grappedFood);
-                }
-                else
-                {
+                    allGrappedFoodEated = false;
                     grappedFood.transform.position += new Vector3(0, liftingSpeed, 0);
                 }
             }
+
+            if (allGrappedFoodEated) grappedFoods = new List<GameObject>();
 
             if (grappedFoods.Count == 0)
             {

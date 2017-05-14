@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreManager : MonoBehaviour {
-
+public class ScoreManager : MonoSingleton<ScoreManager>
+{
     public int currentBonusPoints;
 
     public float timerCombo; // timer that is decreasing over time
@@ -63,7 +63,7 @@ public class ScoreManager : MonoBehaviour {
                     consecutivesBites = 0;
                 }
 
-                if (timerCombo < 4.0f)
+                if (timerCombo < 3.0f)
                 {
                     emergencyState = true;
                 }
@@ -82,7 +82,14 @@ public class ScoreManager : MonoBehaviour {
         timerCombo = originalTimerCombo;
     }
 
-    private void AddScore()
+    public void Eat()
+    {
+        insectEaten = true;
+        comboActivated = true;
+        consecutivesBites++;
+    }
+
+    public void AddScore()
     {
         score += currentBonusPoints;
         textScore.GetComponent<Animator>().Play("ZoomInOut");

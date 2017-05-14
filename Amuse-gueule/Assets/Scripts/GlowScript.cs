@@ -27,14 +27,14 @@ public class GlowScript : MonoBehaviour {
     {
         if (GameManagerScript.Instance.gameActive)
         {
-            if (GameManagerScript.Instance.scoreManager.comboActivated)
+            if (ScoreManager.Instance.comboActivated)
             {
-                if (GameManagerScript.Instance.scoreManager.emergencyState)
+                if (ScoreManager.Instance.emergencyState)
                 {
                     MaterialToReach = emergencyMaterial;
                     currentTimeToSwitch = emergencyTimeToSwitch;
                     // target, amount, time
-                    iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
+                    //iTween.ShakePosition(gameObject, new Vector3(0.1f, 0.1f, 0.1f), 0.1f);
                 }
                 else
                 {
