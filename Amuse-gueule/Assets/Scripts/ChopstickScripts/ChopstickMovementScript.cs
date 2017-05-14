@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class ChopstickMovement : MonoBehaviour
+public class ChopstickMovementScript : MonoBehaviour
 {
     private Rigidbody rigidBody;
 

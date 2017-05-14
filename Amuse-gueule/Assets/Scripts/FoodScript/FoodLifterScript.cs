@@ -5,10 +5,12 @@ using UnityEngine;
 public class FoodLifterScript : MonoBehaviour
 {
     private List<GameObject> grappedFoods;
+
     private float lastJoy1TriggerValue;
     private bool leftChopTryingToLifting;
     private float lastJoy2TriggerValue;
     private bool rightChopTryingToLifting;
+
     private float delayMaxTime;
     private bool inDelay;
 
@@ -17,6 +19,8 @@ public class FoodLifterScript : MonoBehaviour
 
     private float initialeYposition;
     private float liftingSpeed;
+
+    private string liftingParamName;
 
     public bool IsLifting { get; private set; }
 
@@ -37,6 +41,7 @@ public class FoodLifterScript : MonoBehaviour
         IsLifting = false;
         initialeYposition = leftChopstick.transform.position.y;
         liftingSpeed = 0.15f;
+        liftingParamName = "Lift";
     }
 
     public void AddGrappedFood(GameObject grappedFood)
@@ -127,11 +132,13 @@ public class FoodLifterScript : MonoBehaviour
     private void LiftChopstick()
     {
         IsLifting = true;
-        //rotationPoint = (leftChopstick.transform.position + rightChopstick.transform.position)/2;
 
         foreach (GameObject grappedFood in grappedFoods)
         {
             grappedFood.GetComponent<Rigidbody>().isKinematic = true;
+
+            Animator foodAnimator = grappedFood.GetComponent<Animator>();
+            foodAnimator.SetTrigger(liftingParamName);
         }
     }
 
