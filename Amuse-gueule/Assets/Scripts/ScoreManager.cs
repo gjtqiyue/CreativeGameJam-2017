@@ -27,6 +27,7 @@ public class ScoreManager : MonoSingleton<ScoreManager>
 
     public void InitializeScoreManager()
     {
+        comboActivated = false;
         emergencyState = false;
         timerCombo = originalTimerCombo;
         score = 0;

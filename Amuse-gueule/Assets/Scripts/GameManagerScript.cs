@@ -116,6 +116,8 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
 			    if (Input.GetButtonDown ("Joy1ButtA") && Input.GetButtonDown ("Joy2ButtA"))
 				    SceneManager.LoadScene ("Main");*/
 
+                DestroyAllFood();
+
                 Debug.Log("Game Over");
             }
             //end condition 2: eat all the things
@@ -131,13 +133,24 @@ public class GameManagerScript : MonoSingleton<GameManagerScript>
 
                 cameraManager.RaiseCamera();
 				endMenuActive = true;
+                DestroyAllFood();
                 //pop up a text to say the game over
                 //go to the scoreboard
                 //ask restart? or quit
             }
         }
     }
-	
+
+    private void DestroyAllFood()
+    {
+        GameObject[] foods = GameObject.FindGameObjectsWithTag(FOOD);
+
+        foreach (GameObject food in foods)
+        {
+            Destroy(food);
+        }
+    }
+
     public void GetName()
     {
         gameCanvas.SetActive(false);
